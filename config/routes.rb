@@ -14,7 +14,18 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :books
+      resources :books do
+        member do
+          post 'borrow', to: 'books#borrow_book'
+          post 'return', to: 'books#return_book'
+        end
+      end
+      resources :users
+      post 'login', to: 'authentication#login'
+      post 'register', to: 'authentication#register'
+      resources :borrows
+
+      resources :history
     end
   end
 end
